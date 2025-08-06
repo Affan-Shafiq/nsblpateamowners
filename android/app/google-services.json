@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493168424672",
+    "project_id": "salesbet-team-owners",
+    "storage_bucket": "salesbet-team-owners.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493168424672:android:328fcc1dcba28a5ba98285",
+        "android_client_info": {
+          "package_name": "com.example.nsblpa_team_owners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493168424672-420t35s2v02ureq5hq1vqb72s7eq5vvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwNidx6NYz8_mVCdg5QEpqoO16TaHl4KQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493168424672-420t35s2v02ureq5hq1vqb72s7eq5vvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
