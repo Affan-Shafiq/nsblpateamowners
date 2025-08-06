@@ -41,7 +41,7 @@ class TeamCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
                       ),
                       child: Icon(
-                        Icons.sports_football,
+                        Icons.business,
                         size: 28,
                         color: AppColors.primary,
                       ),

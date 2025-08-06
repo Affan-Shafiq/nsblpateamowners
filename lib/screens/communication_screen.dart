@@ -7,9 +7,9 @@ import '../providers/auth_provider.dart';
 import '../utils/constants.dart';
 
 class CommunicationScreen extends StatefulWidget {
-  final Team? team;
+  final Team team;
 
-  const CommunicationScreen({super.key, this.team});
+  const CommunicationScreen({super.key, required this.team});
 
   @override
   State<CommunicationScreen> createState() => _CommunicationScreenState();
@@ -30,11 +30,9 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.team != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.read<CommunicationProvider>().fetchCommunications(widget.team!.id);
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CommunicationProvider>().fetchCommunications(widget.team.id);
+    });
   }
 
   @override
@@ -42,7 +40,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(widget.team != null ? '${widget.team!.name} Communication' : 'Communication'),
+        title: Text('${widget.team.name} Communication'),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
@@ -77,9 +75,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
             );
           }
 
-          final communications = widget.team != null 
-              ? communicationProvider.getCommunicationsByTeam(widget.team!.id)
-              : communicationProvider.communications;
+          final communications = communicationProvider.getCommunicationsByTeam(widget.team.id);
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(AppSizes.paddingMedium),
@@ -87,7 +83,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.team != null ? 'Team Communication' : 'League Communication',
+                  'Team Communication',
                   style: AppTextStyles.heading2,
                 ),
                 const SizedBox(height: AppSizes.paddingMedium),
@@ -370,15 +366,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
       return;
     }
 
-    if (widget.team == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No team selected'),
-          backgroundColor: AppColors.error,
-        ),
-      );
-      return;
-    }
+
 
     final authProvider = context.read<AuthProvider>();
     if (authProvider.currentUserModel == null) {
@@ -392,15 +380,15 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
     }
 
     try {
-      final communication = Communication(
-        teamId: widget.team!.id,
-        subject: _subjectController.text,
-        message: _messageController.text,
-        type: _selectedType,
-        senderId: authProvider.userId!,
-        senderName: authProvider.currentUserModel!.name,
-        createdAt: DateTime.now(),
-      );
+             final communication = Communication(
+         teamId: widget.team.id,
+         subject: _subjectController.text,
+         message: _messageController.text,
+         type: _selectedType,
+         senderId: authProvider.userId!,
+         senderName: authProvider.currentUserModel!.name,
+         createdAt: DateTime.now(),
+       );
 
       await context.read<CommunicationProvider>().sendCommunication(communication);
 
@@ -474,15 +462,7 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
 
               Navigator.of(context).pop();
 
-              if (widget.team == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('No team selected'),
-                    backgroundColor: AppColors.error,
-                  ),
-                );
-                return;
-              }
+              
 
               final authProvider = context.read<AuthProvider>();
               if (authProvider.currentUserModel == null) {
@@ -496,15 +476,15 @@ class _CommunicationScreenState extends State<CommunicationScreen> {
               }
 
               try {
-                final communication = Communication(
-                  teamId: widget.team!.id,
-                  subject: subjectController.text,
-                  message: messageController.text,
-                  type: type,
-                  senderId: authProvider.userId!,
-                  senderName: authProvider.currentUserModel!.name,
-                  createdAt: DateTime.now(),
-                );
+                                 final communication = Communication(
+                   teamId: widget.team.id,
+                   subject: subjectController.text,
+                   message: messageController.text,
+                   type: type,
+                   senderId: authProvider.userId!,
+                   senderName: authProvider.currentUserModel!.name,
+                   createdAt: DateTime.now(),
+                 );
 
                 await context.read<CommunicationProvider>().sendCommunication(communication);
 

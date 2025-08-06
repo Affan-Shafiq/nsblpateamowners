@@ -53,7 +53,7 @@ class PerformanceMetricsCard extends StatelessWidget {
                     'Record',
                     '${latestMetrics.wins}-${latestMetrics.losses}',
                     AppColors.primary,
-                    Icons.sports_soccer,
+                    Icons.trending_up,
                   ),
                 ),
                 const SizedBox(width: 12),

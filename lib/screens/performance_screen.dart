@@ -95,7 +95,7 @@ class PerformanceScreen extends StatelessWidget {
                 'Win %',
                 '${latestMetrics.winPercentage.toStringAsFixed(1)}%',
                 '${latestMetrics.wins}-${latestMetrics.losses}',
-                Icons.sports,
+                Icons.trending_up,
                 AppColors.success,
               ),
             ),

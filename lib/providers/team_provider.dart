@@ -96,18 +96,48 @@ class TeamProvider with ChangeNotifier {
   double getTotalPortfolioValue(String ownerId, List<Map<String, dynamic>> teamsOwned) {
     double totalValue = 0.0;
     
+    print('🔍 [DEBUG] getTotalPortfolioValue called');
+    print('🔍 [DEBUG] ownerId: $ownerId');
+    print('🔍 [DEBUG] teamsOwned: $teamsOwned');
+    print('🔍 [DEBUG] _userTeams length: ${_userTeams.length}');
+    print('🔍 [DEBUG] _teams length: ${_teams.length}');
+    
     for (Map<String, dynamic> teamOwnership in teamsOwned) {
       final teamId = teamOwnership['teamId'] as String?;
       final stake = (teamOwnership['stake'] ?? 0.0).toDouble();
       
+      print('🔍 [DEBUG] Processing teamId: $teamId, stake: $stake');
+      
       if (teamId != null) {
-        final team = getTeamById(teamId);
-        if (team != null) {
-          totalValue += team.marketValue * (stake / 100);
+        // Try to find team in userTeams first, then in all teams
+        Team? team;
+        try {
+          team = _userTeams.firstWhere((team) => team.id == teamId);
+          print('🔍 [DEBUG] Found team in userTeams: ${team.name}, marketValue: ${team.marketValue}');
+        } catch (e) {
+          try {
+            team = _teams.firstWhere((team) => team.id == teamId);
+            print('🔍 [DEBUG] Found team in all teams: ${team.name}, marketValue: ${team.marketValue}');
+          } catch (e) {
+            team = Team(
+              id: teamId,
+              name: teamOwnership['name'] ?? 'Unknown Team',
+              city: '',
+              logo: '',
+              marketValue: 0.0,
+              foundedYear: 0,
+            );
+            print('🔍 [DEBUG] Created default team: ${team.name}, marketValue: ${team.marketValue}');
+          }
         }
+        
+        final teamValue = team.marketValue * (stake / 100);
+        totalValue += teamValue;
+        print('🔍 [DEBUG] Team value: $teamValue, Total so far: $totalValue');
       }
     }
     
+    print('🔍 [DEBUG] Final total value: $totalValue');
     return totalValue;
   }
 

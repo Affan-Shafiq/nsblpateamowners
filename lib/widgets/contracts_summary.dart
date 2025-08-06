@@ -157,7 +157,7 @@ class ContractsSummary extends StatelessWidget {
       case ContractType.player:
         return Icons.person;
       case ContractType.coach:
-        return Icons.sports;
+        return Icons.business;
       case ContractType.vendor:
         return Icons.business;
       default:

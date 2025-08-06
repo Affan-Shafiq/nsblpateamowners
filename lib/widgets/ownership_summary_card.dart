@@ -47,7 +47,7 @@ class OwnershipSummaryCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
                 ),
                 child: const Icon(
-                  Icons.sports_football,
+                  Icons.business,
                   color: Colors.white,
                   size: 24,
                 ),

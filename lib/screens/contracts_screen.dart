@@ -418,7 +418,7 @@ class _ContractsScreenState extends State<ContractsScreen> {
       case ContractType.player:
         return Icons.person;
       case ContractType.coach:
-        return Icons.sports;
+        return Icons.business;
       case ContractType.vendor:
         return Icons.business;
     }

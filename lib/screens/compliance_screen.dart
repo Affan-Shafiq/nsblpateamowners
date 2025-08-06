@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../models/team.dart';
 import '../utils/constants.dart';
 
@@ -32,9 +35,9 @@ class ComplianceScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   _buildSection(
-                    'NSBLPA Guidelines',
-                    Icons.rule,
-                    _buildGuidelinesList(),
+                    'NSBLPA Ownership Resources',
+                    Icons.business,
+                    _buildOwnershipLinks(context),
                   ),
                 ],
               ),
@@ -57,9 +60,12 @@ class ComplianceScreen extends StatelessWidget {
               children: [
                 Icon(icon, color: AppColors.primary, size: 24),
                 const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: AppTextStyles.heading2,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: AppTextStyles.heading2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -71,186 +77,152 @@ class ComplianceScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeadlinesList() {
-    final deadlines = [
-      {'title': 'Q4 Financial Report', 'date': 'Jan 31, 2024', 'status': 'Pending'},
-      {'title': 'Tax Filing Deadline', 'date': 'Apr 15, 2024', 'status': 'Upcoming'},
-      {'title': 'Annual Compliance Review', 'date': 'Mar 1, 2024', 'status': 'Pending'},
-      {'title': 'Player Contract Renewals', 'date': 'Feb 28, 2024', 'status': 'In Progress'},
+
+
+
+
+
+
+  Widget _buildOwnershipLinks(BuildContext context) {
+    final ownershipLinks = [
+      {
+        'title': 'Board Governance',
+        'description': 'Learn about board structure and governance policies',
+        'url': 'https://nsblpa.com/ownership/boardgovernance.html',
+      },
+      {
+        'title': 'Team Ownership',
+        'description': 'Understanding team ownership requirements and processes',
+        'url': 'https://nsblpa.com/ownership/teamownership.html',
+      },
+      {
+        'title': 'Revenue Sharing with Players',
+        'description': 'Guidelines for revenue sharing agreements with players',
+        'url': 'https://nsblpa.com/ownership/revenuesharingplayers.html',
+      },
+      {
+        'title': 'Player Revenue Share',
+        'description': 'Detailed breakdown of player revenue sharing models',
+        'url': 'https://nsblpa.com/ownership/playerrevenueshare.html',
+      },
+      {
+        'title': 'Player Compensation Structure',
+        'description': 'Understanding player compensation and salary structures',
+        'url': 'https://nsblpa.com/ownership/playercompensationstructure.html',
+      },
+      {
+        'title': 'Team Revenue and Player Relationship',
+        'description': 'How team revenue affects player relationships',
+        'url': 'https://nsblpa.com/ownership/teamrevenueplayerrelationship.html',
+      },
+      {
+        'title': 'Revenue Sharing Across Teams',
+        'description': 'League-wide revenue sharing mechanisms',
+        'url': 'https://nsblpa.com/ownership/revenuesharingacrossteams.html',
+      },
+      {
+        'title': 'Detailed Breakdown of Revenue Allocation',
+        'description': 'Complete guide to revenue allocation and distribution',
+        'url': 'https://nsblpa.com/ownership/detailedbreakdownrevenueallocation.html',
+      },
     ];
 
     return Column(
-      children: deadlines.map((deadline) {
-        final isUrgent = deadline['status'] == 'Pending';
-        return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: isUrgent ? AppColors.warning : AppColors.success,
-            child: Icon(
-              isUrgent ? Icons.warning : Icons.check,
-              color: Colors.white,
-              size: 20,
+      children: ownershipLinks.map((link) {
+        return Card(
+          margin: const EdgeInsets.only(bottom: 8),
+          child: ListTile(
+            leading: const Icon(Icons.link, color: AppColors.primary),
+            title: Text(
+              link['title']!,
+              style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
             ),
-          ),
-          title: Text(
-            deadline['title']!,
-            style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(
-            'Due: ${deadline['date']}',
-            style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
-          ),
-          trailing: Chip(
-            label: Text(
-              deadline['status']!,
-              style: AppTextStyles.caption.copyWith(color: Colors.white),
+            subtitle: Text(
+              link['description']!,
+              style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
             ),
-            backgroundColor: isUrgent ? AppColors.warning : AppColors.success,
+            trailing: const Icon(Icons.open_in_new, color: AppColors.primary),
+            onTap: () => _launchURL(context, link['url']!),
           ),
         );
       }).toList(),
     );
   }
 
-  Widget _buildDocumentsList() {
-    final documents = [
-      {'name': 'Team Ownership Certificate', 'status': 'Uploaded', 'date': 'Dec 15, 2023'},
-      {'name': 'Financial Statements Q3', 'status': 'Uploaded', 'date': 'Oct 31, 2023'},
-      {'name': 'Player Contract Templates', 'status': 'Pending', 'date': 'Jan 15, 2024'},
-      {'name': 'Stadium Lease Agreement', 'status': 'Uploaded', 'date': 'Nov 20, 2023'},
-    ];
-
-    return Column(
-      children: documents.map((doc) {
-        final isUploaded = doc['status'] == 'Uploaded';
-        return ListTile(
-          leading: Icon(
-            isUploaded ? Icons.cloud_done : Icons.cloud_upload,
-            color: isUploaded ? AppColors.success : AppColors.warning,
-          ),
-          title: Text(
-            doc['name']!,
-            style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(
-            'Last updated: ${doc['date']}',
-            style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.download),
-            onPressed: () => _showComingSoon('Document Download'),
-          ),
-        );
-      }).toList(),
-    );
+  Future<void> _launchURL(BuildContext context, String url) async {
+    try {
+      print('🔗 [DEBUG] Attempting to launch URL: $url');
+      
+      // Try to launch URL with url_launcher first
+      final Uri uri = Uri.parse(url);
+      final result = await launchUrl(uri);
+      print('🔗 [DEBUG] Launch result: $result');
+      
+      if (result) {
+        return; // Successfully launched
+      }
+    } catch (e) {
+      print('❌ [ERROR] url_launcher failed: $e');
+    }
+    
+    // If url_launcher fails, show web view dialog
+    if (context.mounted) {
+      _showWebViewDialog(context, url);
+    }
   }
-
-  Widget _buildReportsList() {
-    final reports = [
-      {'name': 'Annual Tax Return 2023', 'type': 'Tax', 'status': 'Filed'},
-      {'name': 'Q3 Revenue Report', 'type': 'Financial', 'status': 'Submitted'},
-      {'name': 'Compliance Audit Report', 'type': 'Audit', 'status': 'Pending'},
-      {'name': 'Player Salary Report', 'type': 'Payroll', 'status': 'Due'},
-    ];
-
-    return Column(
-      children: reports.map((report) {
-        final isFiled = report['status'] == 'Filed' || report['status'] == 'Submitted';
-        return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: isFiled ? AppColors.success : AppColors.warning,
-            child: Text(
-              report['type']![0],
-              style: AppTextStyles.body1.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-          title: Text(
-            report['name']!,
-            style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(
-            'Type: ${report['type']}',
-            style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
-          ),
-          trailing: Chip(
-            label: Text(
-              report['status']!,
-              style: AppTextStyles.caption.copyWith(color: Colors.white),
-            ),
-            backgroundColor: isFiled ? AppColors.success : AppColors.warning,
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildGuidelinesList() {
-    final guidelines = [
-      'Team ownership transfer procedures',
-      'Financial reporting requirements',
-      'Player contract regulations',
-      'Stadium and facility standards',
-      'Media and sponsorship guidelines',
-      'League compliance policies',
-    ];
-
-    return Column(
-      children: guidelines.map((guideline) {
-        return ListTile(
-          leading: const Icon(Icons.article, color: AppColors.primary),
-          title: Text(
-            guideline,
-            style: AppTextStyles.body1,
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () => _showComingSoon('Guideline Details'),
-        );
-      }).toList(),
-    );
-  }
-
-  void _showUploadDialog(BuildContext context) {
+  
+  void _showWebViewDialog(BuildContext context, String url) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Upload Document'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Select document type:'),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.description),
-              title: const Text('Financial Report'),
-              onTap: () {
-                Navigator.of(context).pop();
-                _showComingSoon('Document Upload');
-              },
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.8,
+            child: Column(
+              children: [
+                // Header
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'NSBLPA Ownership',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                ),
+                // Web View
+                Expanded(
+                  child: WebViewWidget(
+                    controller: WebViewController()
+                      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                      ..loadRequest(Uri.parse(url)),
+                  ),
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.assignment),
-              title: const Text('Compliance Report'),
-              onTap: () {
-                Navigator.of(context).pop();
-                _showComingSoon('Document Upload');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.receipt),
-              title: const Text('Tax Document'),
-              onTap: () {
-                Navigator.of(context).pop();
-                _showComingSoon('Document Upload');
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

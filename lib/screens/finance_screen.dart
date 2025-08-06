@@ -410,7 +410,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   child: _buildMetricItem(
                     'Record',
                     '${latestMetrics.wins}-${latestMetrics.losses}',
-                    Icons.sports_soccer,
+                    Icons.trending_up,
                   ),
                 ),
                 Expanded(

@@ -59,7 +59,7 @@ class AdminPanelScreen extends StatelessWidget {
                   _buildAdminCard(
                     context,
                     'Team Management',
-                    Icons.sports_soccer,
+                    Icons.admin_panel_settings,
                     'Add new teams to the league',
                     () => _showComingSoon(context, 'Team Management'),
                   ),

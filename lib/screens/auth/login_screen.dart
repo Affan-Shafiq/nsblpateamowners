@@ -92,10 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Logo and Title
-                const Icon(
-                  Icons.sports_soccer,
-                  size: 80,
-                  color: AppColors.primary,
+                Image.asset(
+                  'assets/images/salesbet_logo.png',
+                  height: 80,
+                  width: 80,
                 ),
                 const SizedBox(height: 24),
                 Text(

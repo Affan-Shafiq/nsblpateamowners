@@ -95,7 +95,7 @@ class _TeamSelectorScreenState extends State<TeamSelectorScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.sports_football_outlined,
+                          Icons.business,
                           size: 64,
                           color: AppColors.textSecondary,
                         ),

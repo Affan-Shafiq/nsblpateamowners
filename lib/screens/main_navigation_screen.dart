@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import 'team_selector_screen.dart';
 import 'dashboard_screen.dart';
-import 'communication_screen.dart';
 import 'profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -18,7 +17,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _screens = [
     const TeamSelectorScreen(),
     const DashboardScreen(),
-    const CommunicationScreen(team: null),
     const ProfileScreen(),
   ];
 
@@ -60,16 +58,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.sports_soccer),
+              icon: Icon(Icons.business),
               label: 'Teams',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),
               label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              label: 'Communication',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

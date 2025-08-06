@@ -80,10 +80,10 @@ class _SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Header
-                const Icon(
-                  Icons.sports_soccer,
-                  size: 60,
-                  color: AppColors.primary,
+                Image.asset(
+                  'assets/images/salesbet_logo.png',
+                  height: 60,
+                  width: 60,
                 ),
                 const SizedBox(height: 16),
                 Text(

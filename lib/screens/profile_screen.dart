@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../providers/auth_provider.dart';
 import '../utils/constants.dart';
 
@@ -81,30 +82,6 @@ class ProfileScreen extends StatelessWidget {
                 
                 const SizedBox(height: 24),
                 
-                // Account Settings
-                _buildSection(
-                  'Account Settings',
-                  [
-                    _buildMenuItem(
-                      'Personal Information',
-                      Icons.person_outline,
-                      () => _showComingSoon(context, 'Personal Information'),
-                    ),
-                    _buildMenuItem(
-                      'Change Password',
-                      Icons.lock_outline,
-                      () => _showComingSoon(context, 'Change Password'),
-                    ),
-                    _buildMenuItem(
-                      'Notification Settings',
-                      Icons.notifications_outlined,
-                      () => _showComingSoon(context, 'Notification Settings'),
-                    ),
-                  ],
-                ),
-                
-                const SizedBox(height: 16),
-                
                 // App Settings
                 _buildSection(
                   'App Settings',
@@ -112,17 +89,12 @@ class ProfileScreen extends StatelessWidget {
                     _buildMenuItem(
                       'Privacy Policy',
                       Icons.privacy_tip_outlined,
-                      () => _showComingSoon(context, 'Privacy Policy'),
-                    ),
-                    _buildMenuItem(
-                      'Terms of Service',
-                      Icons.description_outlined,
-                      () => _showComingSoon(context, 'Terms of Service'),
+                      () => _launchURL(context, 'https://salesbets.com/privacy.html'),
                     ),
                     _buildMenuItem(
                       'About NSBLPA',
                       Icons.info_outline,
-                      () => _showComingSoon(context, 'About NSBLPA'),
+                      () => _launchURL(context, 'https://nsblpa.com/ownership/'),
                     ),
                   ],
                 ),
@@ -254,6 +226,34 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _launchURL(BuildContext context, String url) async {
+    try {
+      print('🔗 [DEBUG] Attempting to launch URL: $url');
+      final Uri uri = Uri.parse(url);
+      final result = await launchUrl(uri);
+      print('🔗 [DEBUG] Launch result: $result');
+      
+      if (!result && context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to open link. Please try again.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+    } catch (e) {
+      print('❌ [ERROR] Failed to launch URL: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error opening link: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   void _handleLogout(BuildContext context) async {
