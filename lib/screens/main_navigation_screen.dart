@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 import '../utils/constants.dart';
 import 'team_selector_screen.dart';
 import 'dashboard_screen.dart';
 import 'profile_screen.dart';
+import 'admin_panel_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -14,11 +17,25 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
   
-  final List<Widget> _screens = [
-    const TeamSelectorScreen(),
-    const DashboardScreen(),
-    const ProfileScreen(),
-  ];
+  List<Widget> get _screens {
+    final authProvider = context.read<AuthProvider>();
+    final isAdmin = authProvider.currentUserModel?.role == 'admin';
+    
+    if (isAdmin) {
+      return [
+        const TeamSelectorScreen(),
+        const DashboardScreen(),
+        const AdminPanelScreen(),
+        const ProfileScreen(),
+      ];
+    } else {
+      return [
+        const TeamSelectorScreen(),
+        const DashboardScreen(),
+        const ProfileScreen(),
+      ];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,22 +73,50 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             fontWeight: FontWeight.normal,
             fontSize: 12,
           ),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Teams',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
+          items: _buildNavigationItems(),
         ),
       ),
     );
+  }
+
+  List<BottomNavigationBarItem> _buildNavigationItems() {
+    final authProvider = context.read<AuthProvider>();
+    final isAdmin = authProvider.currentUserModel?.role == 'admin';
+    
+    if (isAdmin) {
+      return const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          label: 'Teams',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.dashboard),
+          label: 'Dashboard',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.admin_panel_settings),
+          label: 'Admin',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ];
+    } else {
+      return const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          label: 'Teams',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.dashboard),
+          label: 'Dashboard',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ];
+    }
   }
 } 

@@ -410,6 +410,12 @@ class _ContractsScreenState extends State<ContractsScreen> {
         return AppColors.accent;
       case ContractType.vendor:
         return AppColors.secondary;
+      case ContractType.sponsorship:
+        return AppColors.primary;
+      case ContractType.media:
+        return AppColors.accent;
+      case ContractType.merchandise:
+        return AppColors.secondary;
     }
   }
 
@@ -421,6 +427,12 @@ class _ContractsScreenState extends State<ContractsScreen> {
         return Icons.business;
       case ContractType.vendor:
         return Icons.business;
+      case ContractType.sponsorship:
+        return Icons.attach_money;
+      case ContractType.media:
+        return Icons.video_library;
+      case ContractType.merchandise:
+        return Icons.shopping_bag;
     }
   }
 

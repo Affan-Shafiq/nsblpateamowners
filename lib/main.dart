@@ -8,6 +8,7 @@ import 'providers/team_provider.dart';
 import 'providers/contract_provider.dart';
 import 'providers/finance_provider.dart';
 import 'providers/communication_provider.dart';
+import 'providers/admin_provider.dart';
 import 'utils/constants.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class NSBLPAApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ContractProvider()),
         ChangeNotifierProvider(create: (_) => FinanceProvider()),
         ChangeNotifierProvider(create: (_) => CommunicationProvider()),
+        ChangeNotifierProvider(create: (_) => AdminProvider()),
       ],
       child: MaterialApp(
         title: 'NSBLPA Team Owners',

@@ -96,12 +96,7 @@ class _TeamDashboardScreenState extends State<TeamDashboardScreen>
             Navigator.pop(context);
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () => _showShareOwnershipDialog(),
-          ),
-        ],
+        actions: [],
       ),
       body: Column(
         children: [
@@ -423,29 +418,6 @@ class _TeamDashboardScreenState extends State<TeamDashboardScreen>
       default:
         return AppColors.textSecondary;
     }
-  }
-
-  void _showShareOwnershipDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Share Ownership'),
-        content: const Text('This feature allows you to share ownership with another verified user.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // TODO: Implement share ownership functionality
-            },
-            child: const Text('Share'),
-          ),
-        ],
-      ),
-    );
   }
 
   void _showTeamSettingsDialog() {

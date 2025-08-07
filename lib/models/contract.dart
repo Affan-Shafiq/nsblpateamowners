@@ -1,6 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum ContractType { player, coach, vendor }
+enum ContractType { player, coach, vendor, sponsorship, media, merchandise }
+
+extension ContractTypeExtension on ContractType {
+  String get displayName {
+    switch (this) {
+      case ContractType.player:
+        return 'Player';
+      case ContractType.coach:
+        return 'Coach';
+      case ContractType.vendor:
+        return 'Vendor';
+      case ContractType.sponsorship:
+        return 'Sponsorship';
+      case ContractType.media:
+        return 'Media';
+      case ContractType.merchandise:
+        return 'Merchandise';
+    }
+  }
+}
 enum ContractStatus { pending, active, expired, terminated }
 
 class Contract {
@@ -87,16 +106,7 @@ class Contract {
     return endDate.difference(now).inDays;
   }
   
-  String get typeDisplayName {
-    switch (type) {
-      case ContractType.player:
-        return 'Player';
-      case ContractType.coach:
-        return 'Coach';
-      case ContractType.vendor:
-        return 'Vendor';
-    }
-  }
+  String get typeDisplayName => type.displayName;
   
   String get statusDisplayName {
     switch (status) {

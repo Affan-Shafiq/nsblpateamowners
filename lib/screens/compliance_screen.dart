@@ -62,8 +62,8 @@ class ComplianceScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    title,
-                    style: AppTextStyles.heading2,
+                  title,
+                  style: AppTextStyles.heading2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -133,13 +133,13 @@ class ComplianceScreen extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 8),
           child: ListTile(
             leading: const Icon(Icons.link, color: AppColors.primary),
-            title: Text(
+          title: Text(
               link['title']!,
-              style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
+            style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Text(
               link['description']!,
-              style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.body2.copyWith(color: AppColors.textSecondary),
             ),
             trailing: const Icon(Icons.open_in_new, color: AppColors.primary),
             onTap: () => _launchURL(context, link['url']!),
@@ -192,7 +192,7 @@ class ComplianceScreen extends StatelessWidget {
                     ),
                   ),
                   child: Row(
-                    children: [
+          children: [
                       Expanded(
                         child: Text(
                           'NSBLPA Ownership',
@@ -206,9 +206,9 @@ class ComplianceScreen extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.close, color: Colors.white),
                         onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
+            ),
+          ],
+        ),
                 ),
                 // Web View
                 Expanded(
@@ -217,9 +217,9 @@ class ComplianceScreen extends StatelessWidget {
                       ..setJavaScriptMode(JavaScriptMode.unrestricted)
                       ..loadRequest(Uri.parse(url)),
                   ),
-                ),
-              ],
-            ),
+          ),
+        ],
+      ),
           ),
         );
       },

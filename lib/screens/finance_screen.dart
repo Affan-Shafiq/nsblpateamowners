@@ -68,19 +68,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
           }
         },
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSizes.paddingMedium),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Consumer<FinanceProvider>(
-                builder: (context, financeProvider, child) {
+        padding: const EdgeInsets.all(AppSizes.paddingMedium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Consumer<FinanceProvider>(
+              builder: (context, financeProvider, child) {
                   print('🔍 [DEBUG] FinanceScreen Consumer rebuild');
                   print('🔍 [DEBUG] isLoading: ${financeProvider.isLoading}');
                   print('🔍 [DEBUG] error: ${financeProvider.error}');
                   print('🔍 [DEBUG] total revenue reports: ${financeProvider.revenueReports.length}');
                   print('🔍 [DEBUG] total performance metrics: ${financeProvider.performanceMetrics.length}');
                   
-                  if (financeProvider.isLoading) {
+                if (financeProvider.isLoading) {
                     print('🔍 [DEBUG] Showing loading indicator');
                     return const Center(
                       child: Padding(
@@ -146,22 +146,22 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   
                   if (teamReports.isEmpty && teamMetrics.isEmpty) {
                     print('🔍 [DEBUG] No data available, showing empty state');
-                    return const Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(AppSizes.paddingLarge),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.attach_money,
-                                size: 64,
-                                color: AppColors.textSecondary,
-                              ),
-                              SizedBox(height: AppSizes.paddingMedium),
-                              Text(
-                                'No financial data available',
-                                style: AppTextStyles.body1,
-                              ),
+                  return const Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(AppSizes.paddingLarge),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.attach_money,
+                              size: 64,
+                              color: AppColors.textSecondary,
+                            ),
+                            SizedBox(height: AppSizes.paddingMedium),
+                            Text(
+                              'No financial data available',
+                              style: AppTextStyles.body1,
+                            ),
                               SizedBox(height: AppSizes.paddingSmall),
                               Text(
                                 'Pull to refresh or check your connection',
@@ -170,24 +170,24 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               ),
                             ],
                           ),
-                        ),
                       ),
-                    );
-                  }
-                  
+                    ),
+                  );
+                }
+                
                   print('🔍 [DEBUG] Building data display');
-                  return Column(
-                    children: [
+                return Column(
+                  children: [
                       // Revenue Summary Cards (only if we have revenue reports)
                       if (teamReports.isNotEmpty) ...[
                         _buildRevenueSummaryCards(teamReports),
-                        const SizedBox(height: AppSizes.paddingLarge),
-                        
-                        // Revenue Breakdown
+                    const SizedBox(height: AppSizes.paddingLarge),
+                    
+                    // Revenue Breakdown
                         _buildRevenueBreakdown(teamReports),
-                        const SizedBox(height: AppSizes.paddingLarge),
-                        
-                        // Recent Reports
+                    const SizedBox(height: AppSizes.paddingLarge),
+                    
+                    // Recent Reports
                         _buildRecentReports(teamReports),
                       ],
                       
@@ -196,11 +196,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         if (teamReports.isNotEmpty) const SizedBox(height: AppSizes.paddingLarge),
                         _buildPerformanceMetrics(teamMetrics),
                       ],
-                    ],
-                  );
-                },
-              ),
-            ],
+                  ],
+                );
+              },
+            ),
+          ],
           ),
         ),
       ),
@@ -293,14 +293,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: Text(
                         _getRevenueTypeDisplayName(entry.key),
                         style: AppTextStyles.body1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: LinearProgressIndicator(
                         value: percentage / 100,
                         backgroundColor: AppColors.textSecondary.withOpacity(0.2),
@@ -317,6 +318,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           color: AppColors.success,
                         ),
                         textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
