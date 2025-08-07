@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSBLPA Team Owners - Feature Graphic Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .controls h2 {
+            margin-bottom: 15px;
+            color: #1E3A8A;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .control-group input, .control-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1E3A8A;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e40af;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .feature-graphic {
+            width: 1024px;
+            height: 500px;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #1E40AF 100%);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .graphic-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .left-section {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 48px;
+            color: #1E3A8A;
+        }
+
+        .right-section {
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .features {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .background-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 50px;
+            right: 100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 60px;
+            height: 60px;
+            top: 200px;
+            right: 300px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            top: 350px;
+            right: 150px;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .download-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .preview-container h3 {
+            margin-bottom: 15px;
+            color: #1E3A8A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <h2>NSBLPA Team Owners - Feature Graphic Generator</h2>
+            
+            <div class="control-group">
+                <label for="title">Main Title:</label>
+                <input type="text" id="title" value="NSBLPA TEAM OWNERS" maxlength="30">
+            </div>
+            
+            <div class="control-group">
+                <label for="subtitle">Subtitle:</label>
+                <input type="text" id="subtitle" value="Professional Sales Team Management Platform" maxlength="50">
+            </div>
+            
+            <div class="control-group">
+                <label for="colorScheme">Color Scheme:</label>
+                <select id="colorScheme">
+                    <option value="blue">Professional Blue</option>
+                    <option value="dark">Dark Theme</option>
+                    <option value="gradient">Multi-Gradient</option>
+                </select>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-primary" onclick="updateGraphic()">Update Preview</button>
+                <button class="btn-secondary" onclick="downloadPNG()">Download PNG</button>
+                <button class="btn-secondary" onclick="resetToDefault()">Reset to Default</button>
+            </div>
+        </div>
+
+        <div class="preview-container">
+            <h3>Preview (1024x500px)</h3>
+            <div class="feature-graphic" id="featureGraphic">
+                <div class="background-elements">
+                    <div class="grid-pattern"></div>
+                    <div class="floating-shape shape-1"></div>
+                    <div class="floating-shape shape-2"></div>
+                    <div class="floating-shape shape-3"></div>
+                </div>
+                
+                <div class="graphic-content">
+                    <div class="left-section">
+                        <div class="app-icon">💼</div>
+                    </div>
+                    
+                    <div class="right-section">
+                        <div class="title" id="titleElement">NSBLPA TEAM OWNERS</div>
+                        <div class="subtitle" id="subtitleElement">Professional Sales Team Management Platform</div>
+                        
+                        <div class="features">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-icon">💼</div>
+                            <div class="feature-icon">👥</div>
+                            <div class="feature-icon">💰</div>
+                            <div class="feature-icon">📈</div>
+                            <div class="feature-icon">🏆</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function updateGraphic() {
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const colorScheme = document.getElementById('colorScheme').value;
+            
+            document.getElementById('titleElement').textContent = title;
+            document.getElementById('subtitleElement').textContent = subtitle;
+            
+            const graphic = document.getElementById('featureGraphic');
+            
+            // Update color scheme
+            switch(colorScheme) {
+                case 'blue':
+                    graphic.style.background = 'linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #1E40AF 100%)';
+                    break;
+                case 'dark':
+                    graphic.style.background = 'linear-gradient(135deg, #111827 0%, #1F2937 50%, #374151 100%)';
+                    break;
+                case 'gradient':
+                    graphic.style.background = 'linear-gradient(135deg, #1E3A8A 0%, #7C3AED 25%, #3B82F6 50%, #F59E0B 75%, #EF4444 100%)';
+                    break;
+            }
+        }
+
+        function downloadPNG() {
+            const element = document.getElementById('featureGraphic');
+            
+            html2canvas(element, {
+                width: 1024,
+                height: 500,
+                scale: 1, // Higher quality
+                backgroundColor: null,
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'nsblpa-team-owners-feature-graphic.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(error => {
+                console.error('Error generating PNG:', error);
+                alert('Error generating PNG. Please try again.');
+            });
+        }
+
+        function resetToDefault() {
+            document.getElementById('title').value = 'NSBLPA TEAM OWNERS';
+            document.getElementById('subtitle').value = 'Professional Sales Team Management Platform';
+            document.getElementById('colorScheme').value = 'blue';
+            updateGraphic();
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGraphic();
+        });
+
+        // Auto-update on input changes
+        document.getElementById('title').addEventListener('input', updateGraphic);
+        document.getElementById('subtitle').addEventListener('input', updateGraphic);
+        document.getElementById('colorScheme').addEventListener('change', updateGraphic);
+    </script>
+</body>
+</html> 

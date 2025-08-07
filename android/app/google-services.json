@@ -14,6 +14,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "493168424672-edlm6acr2do9m58shelfieaborpg66g4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nsblpa_team_owners",
+            "certificate_hash": "72083da4f42c0a71209ac52adf75488f3a24bb30"
+          }
+        },
+        {
+          "client_id": "493168424672-420t35s2v02ureq5hq1vqb72s7eq5vvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwNidx6NYz8_mVCdg5QEpqoO16TaHl4KQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493168424672-420t35s2v02ureq5hq1vqb72s7eq5vvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493168424672:android:7107f6f83056d518a98285",
+        "android_client_info": {
+          "package_name": "com.nsblpa.team_owners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493168424672-lha7ruj90akd9319l7j686t949ipiul0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nsblpa.team_owners",
+            "certificate_hash": "72083da4f42c0a71209ac52adf75488f3a24bb30"
+          }
+        },
+        {
           "client_id": "493168424672-420t35s2v02ureq5hq1vqb72s7eq5vvd.apps.googleusercontent.com",
           "client_type": 3
         }
